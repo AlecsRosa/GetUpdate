@@ -1,0 +1,10 @@
+framework module Update {
+  umbrella header "Update-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module Update.__Swift {
+    exclude header "Update-Swift.h"
+}
