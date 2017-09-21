@@ -102,7 +102,11 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     
     public class func askForUpdate() {
         print("ASK")
-        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self as? URLSessionDelegate, delegateQueue: nil)
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        //let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self as? URLSessionDelegate, delegateQueue: nil)
     
         guard let URL = URL(string: UpdateManager.BaseUrl + UpdateManager.Endpoint + UpdateManager.token! + "/" + UpdateManager.UUID + "/" + UpdateManager.currentVersion! + "/") else { return }
         
