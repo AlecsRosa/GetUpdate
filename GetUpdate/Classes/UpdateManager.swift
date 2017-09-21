@@ -81,7 +81,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
         } else {
-            // Fallback on earlier versions
+            UIApplication.shared.openURL(storeURL)
         }
     }
     
