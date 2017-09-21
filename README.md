@@ -1,6 +1,11 @@
 ![GetUpdate: Simple App updates manager](https://github.com/AlecsRosa/GetUpdate/blob/master/Example/GetUpdate/Images.xcassets/AppIcon.appiconset/Icon-App-60x60%402x.png)
 
+[![CI Status](http://img.shields.io/travis/AlecsRosa/GetUpdate.svg?style=flat)](https://travis-ci.org/AlecsRosa/GetUpdate)
 
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GetUpdate.svg)](https://img.shields.io/cocoapods/v/GetUpdate.svg)
+[![Version](https://img.shields.io/cocoapods/v/GetUpdate.svg)](http://cocoapods.org/pods/GetUpdate)
+[![License](https://img.shields.io/cocoapods/l/GetUpdate.svg?style=flat)](http://cocoapods.org/pods/GetUpdate)
+[![Platform](https://img.shields.io/cocoapods/p/GetUpdate.svg?style=flat)](http://cocoapods.org/pods/GetUpdate)
 
 ## Example
 
