@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name         = "GetUpdate"
   s.version      = "0.1.0"
-  s.summary      = "GetUpdate helps you to manage App updates"
+  s.summary      = "GetUpdate helps you to manage app updates"
   s.homepage     = "https://github.com/AlecsRosa/GetUpdate"
   s.license      = "MIT"
   s.author       = { 'Alessandro Rosa' => 'alecs.rosa@me.com' }
