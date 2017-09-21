@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-GetUpdate helps you to manage App updates..
+GetUpdate helps you to manage App updates.
                        DESC
 
   s.homepage         = 'https://github.com/AlecsRosa/GetUpdate'
