@@ -1,16 +1,23 @@
 PODS:
-  - Update (0.1.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - GetUpdate (0.1.0)
 
 DEPENDENCIES:
-  - Update (from `../`)
+  - FBSnapshotTestCase
+  - GetUpdate (from `../`)
 
 EXTERNAL SOURCES:
-  Update:
+  GetUpdate:
     :path: ../
 
 SPEC CHECKSUMS:
-  Update: 87808b85a148771a309a01549bc288c362142a77
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  GetUpdate: 324f8c39a69c86cde6461f5d7c7f3fb38eb8d837
 
-PODFILE CHECKSUM: 7522058cc2e64a0c0d8b0ed6d1817443eacfac21
+PODFILE CHECKSUM: 8e91180d6719eb8f0642dfdabb6f2bfde23cc9fa
 
 COCOAPODS: 1.1.1

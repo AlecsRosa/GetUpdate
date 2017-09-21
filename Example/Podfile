@@ -1,11 +1,11 @@
 use_frameworks!
 
-target 'Update_Example' do
-  pod 'Update', :path => '../'
+target 'GetUpdate_Example' do
+  pod 'GetUpdate', :path => '../'
 
-  target 'Update_Tests' do
+  target 'GetUpdate_Tests' do
     inherit! :search_paths
 
-    
+    pod 'FBSnapshotTestCase'
   end
 end

@@ -4,35 +4,73 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-Update_Example.xcscheme</key>
+		<key>FBSnapshotTestCase 2.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
-		<key>Pods-Update_Tests.xcscheme</key>
+		<key>FBSnapshotTestCase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>0</integer>
 		</dict>
-		<key>Update.xcscheme</key>
+		<key>GetUpdate 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>GetUpdate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Pods-GetUpdate_Example 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Pods-GetUpdate_Example.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Pods-GetUpdate_Tests 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Pods-GetUpdate_Tests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2A6D6B35FB1E02794132A749A2F0A355</key>
+		<key>34CD2E3428AB802BACA62286FF5074B1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A95F479AEE33518CF48F89D24F57B6F5</key>
+		<key>4458A7EB30E6F60D783760D23679CAB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E18FE835E84172E16CB50B885C8F9473</key>
+		<key>9A846ABB0B9916CD27A1C3BDC736F3D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A42847953C6970FBE2DDA8DA9B5BA872</key>
 		<dict>
 			<key>primary</key>
 			<true/>

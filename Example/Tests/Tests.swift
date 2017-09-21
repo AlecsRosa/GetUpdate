@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import Update
+import GetUpdate
 
 class Tests: XCTestCase {
     
