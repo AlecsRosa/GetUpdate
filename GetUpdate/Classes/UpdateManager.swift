@@ -69,7 +69,6 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         }
         
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-
     }
     
     

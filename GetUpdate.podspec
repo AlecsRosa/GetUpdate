@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/AlecsRosa/GetUpdate"
   s.license      = "MIT"
   s.author       = { 'Alessandro Rosa' => 'alecs.rosa@me.com' }
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "9.0"
   s.source       = { :git => 'https://github.com/AlecsRosa/GetUpdate.git', :tag => s.version }
   s.source_files = 'GetUpdate/Classes/**/*'
 end
