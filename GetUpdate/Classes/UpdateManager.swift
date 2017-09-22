@@ -24,6 +24,18 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     static var blockAction: (()->())?
     
     
+    private class func setMuteFrom() {
+        let pref = UserDefaults()
+        pref.set(UpdateManager.dateToMillis(date: Date()), forKey: "GET_UPDATE_MUTE")
+        pref.synchronize()
+    }
+    
+    private class func getMuteFrom() -> Int {
+        let pref = UserDefaults()
+        return pref.integer(forKey: "GET_UPDATE_MUTE")
+    }
+    
+    
     // MARK: Init
     
     public class func setup(token: String) {
@@ -34,6 +46,9 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     // MARK: UIAlertController
     
     private class func showAlert(update: Update, alertType: AlertType) {
+        
+        guard update.update != UpdateType.optional.rawValue || update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom()) else { return }
+        
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
@@ -46,6 +61,8 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             let ActionUpdateTitle: String = "Update"
             
             let actionAskLater = UIAlertAction(title: ActionAskLaterTitle, style: .default) { (action) in
+                UpdateManager.setMuteFrom()
+                
                 if let block = UpdateManager.blockAction {
                     block()
                 }
@@ -114,7 +131,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-                
+        
         guard let URL = URL(string: UpdateManager.BaseUrl + UpdateManager.Endpoint + UpdateManager.token! + "/" + UpdateManager.UUID + "/" + UpdateManager.currentVersion! + "/") else { return }
         
         var request = URLRequest(url: URL)
@@ -160,6 +177,23 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         task.resume()
         session.finishTasksAndInvalidate()
     }
+}
+
+
+extension UpdateManager {
+    
+    class var now: Date { return Date() }
+    class var day: Int { return 60 * 60 * 24 } // 60 * 60 * 24
+    
+    class func dateToMillis(date: Date) -> Int {
+        return Int(date.timeIntervalSince1970)
+    }
+    
+    class func canShowGetUpdate(before: Int) -> Bool {
+        print(dateToMillis(date: now) - before)
+        return (dateToMillis(date: now) - before) > day
+    }
+    
 }
 
 
