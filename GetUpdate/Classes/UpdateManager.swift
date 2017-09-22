@@ -23,17 +23,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     
     static var blockAction: (()->())?
     
-    
-    private class func setMuteFrom() {
-        let pref = UserDefaults()
-        pref.set(UpdateManager.dateToMillis(date: Date()), forKey: "GET_UPDATE_MUTE")
-        pref.synchronize()
-    }
-    
-    private class func getMuteFrom() -> Int {
-        let pref = UserDefaults()
-        return pref.integer(forKey: "GET_UPDATE_MUTE")
-    }
+
     
     
     // MARK: Init
@@ -47,18 +37,22 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     
     private class func showAlert(update: Update, alertType: AlertType) {
         
-        guard update.update != UpdateType.optional.rawValue || update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom()) else { return }
-        
-        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         switch alertType {
         case .update:
-            let Title: String = "New version \(update.version!) available"
-            let Message: String = "A new version of \(update.app!.name!) is available on the App Store. Get the latest features to bla bla bla.."
             
-            let ActionAskLaterTitle: String = "Ask me later"
-            let ActionUpdateTitle: String = "Update"
+            guard
+                update.update != UpdateType.optional.rawValue ||
+                update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
+                else { return }
+
+            
+            let Title: String = "Versione \(update.version!) disponibile"
+            let Message: String = "Una nuova versione di \(update.app!.name!) è disponibile sull' App Store.\nAggiorna per scoprire le funzionalità introdotte"
+            
+            let ActionAskLaterTitle: String = "Chiedimelo più tardi"
+            let ActionUpdateTitle: String = "Aggiorna"
             
             let actionAskLater = UIAlertAction(title: ActionAskLaterTitle, style: .default) { (action) in
                 UpdateManager.setMuteFrom()
@@ -83,9 +77,9 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             alert.addAction(actionUpdate)
             
         case .alert:
-            let Title: String = "🎉 Your App is up to date!"
-            let Message: String = "\nWhat's new in this version:\n\n" + update.description!
-            let ActionOkTitle: String = "Got it"
+            let Title: String = "🎉 La tua app è aggiornata!"
+            let Message: String = "\nNovità in questa versione:\n\n" + update.description!
+            let ActionOkTitle: String = "Ok, ho capito"
             
             let actionOk = UIAlertAction(title: ActionOkTitle, style: .default, handler: nil)
             
@@ -161,7 +155,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
                         })
                         
                     } else {
-                        print("No Update Available.")
+                        print("Nessun aggiornamento disponibile.")
                     }
                     
                 } catch let error as NSError {
@@ -192,6 +186,17 @@ extension UpdateManager {
     class func canShowGetUpdate(before: Int) -> Bool {
         print(dateToMillis(date: now) - before)
         return (dateToMillis(date: now) - before) > day
+    }
+    
+    class func setMuteFrom() {
+        let pref = UserDefaults()
+        pref.set(UpdateManager.dateToMillis(date: Date()), forKey: "GET_UPDATE_MUTE")
+        pref.synchronize()
+    }
+    
+    class func getMuteFrom() -> Int {
+        let pref = UserDefaults()
+        return pref.integer(forKey: "GET_UPDATE_MUTE")
     }
     
 }
