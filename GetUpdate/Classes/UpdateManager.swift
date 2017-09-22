@@ -49,7 +49,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
 
             
             let Title: String = "Versione \(update.version!) disponibile"
-            let Message: String = "Una nuova versione di \(update.app!.name!) è disponibile sull' App Store.\nAggiorna per scoprire le funzionalità introdotte"
+            let Message: String = "Una nuova versione di \(update.app!.name!) è disponibile sull'App Store.\nAggiorna per scoprire le funzionalità introdotte"
             
             let ActionAskLaterTitle: String = "Chiedimelo più tardi"
             let ActionUpdateTitle: String = "Aggiorna"
