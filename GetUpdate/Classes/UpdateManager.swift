@@ -42,10 +42,10 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         switch alertType {
         case .update:
             
-            guard
-                update.update != UpdateType.optional.rawValue ||
-                update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
-                else { return }
+//            guard
+//                update.update != UpdateType.optional.rawValue ||
+//                update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
+//                else { return }
 
             
             let Title: String = "Versione \(update.version!) disponibile"
