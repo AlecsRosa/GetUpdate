@@ -44,7 +44,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             
             guard
                 update.update != UpdateType.optional.rawValue ||
-                update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
+                    update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
                 else { return }
 
             
@@ -89,7 +89,12 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             alert.addAction(actionOk)
         }
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.global(qos: .background).async {
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
     }
     
     
