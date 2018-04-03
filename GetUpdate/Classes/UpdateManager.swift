@@ -15,11 +15,14 @@ public class UpdateManager: NSObject, URLSessionDelegate {
     
     static let BaseUrl: String = "http://app.getupdate.it/"
     static let Endpoint: String = "api/v1/updates/"
-
+    
     static var UUID = UIDevice.current.identifierForVendor!.uuidString
     static var currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     static var token: String?
+    
+    static var blockAction: (()->())?
+    
 
     
     
@@ -29,24 +32,42 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         UpdateManager.token = token
     }
     
-
+    
     // MARK: UIAlertController
-
+    
     private class func showAlert(update: Update, alertType: AlertType) {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-
+        
         switch alertType {
         case .update:
+            
+            guard
+                update.update != UpdateType.optional.rawValue ||
+                    update.update == UpdateType.optional.rawValue && UpdateManager.canShowGetUpdate(before: UpdateManager.getMuteFrom())
+                else { return }
+
+            
             let Title: String = "New version \(update.version!) available"
-            let Message: String = "A new version of \(update.app!.name!) is available on the App Store. Get the latest features to bla bla bla.."
+            let Message: String = "A new version of \(update.app!.name!) is available on the App Store.\nUpdate to get the latest features"
             
             let ActionAskLaterTitle: String = "Ask me later"
             let ActionUpdateTitle: String = "Update"
-
-            let actionAskLater = UIAlertAction(title: ActionAskLaterTitle, style: .default, handler: nil)
+            
+            let actionAskLater = UIAlertAction(title: ActionAskLaterTitle, style: .default) { (action) in
+                UpdateManager.setMuteFrom()
+                
+                if let block = UpdateManager.blockAction {
+                    block()
+                }
+            }
+            
             let actionUpdate = UIAlertAction(title: ActionUpdateTitle, style: .default) { (action) in
                 self.openStore(app: update.app)
+                
+                if let block = UpdateManager.blockAction {
+                    block()
+                }
             }
             
             alert.title = Title
@@ -68,7 +89,12 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             alert.addAction(actionOk)
         }
         
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        DispatchQueue.global(qos: .background).async {
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController?.presentedViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
     }
     
     
@@ -81,7 +107,7 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
         } else {
-            // Fallback on earlier versions
+            UIApplication.shared.openURL(storeURL)
         }
     }
     
@@ -95,18 +121,16 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             completionHandler(.useCredential, credential)
         }
     }
-
-
+    
+    
     // MARK: Network
     
-    public class func askForUpdate() {
-        print("ASK")
+    public class func askForUpdate(block: (()->())? = nil) {
+        UpdateManager.blockAction = block
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
-        //let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self as? URLSessionDelegate, delegateQueue: nil)
-    
         guard let URL = URL(string: UpdateManager.BaseUrl + UpdateManager.Endpoint + UpdateManager.token! + "/" + UpdateManager.UUID + "/" + UpdateManager.currentVersion! + "/") else { return }
         
         var request = URLRequest(url: URL)
@@ -134,9 +158,9 @@ public class UpdateManager: NSObject, URLSessionDelegate {
                                 self.showAlert(update: update, alertType: .alert)
                             }
                         })
-                    
+                        
                     } else {
-                        print("No Update Available.")
+                        print("Nessun aggiornamento disponibile.")
                     }
                     
                 } catch let error as NSError {
@@ -152,6 +176,34 @@ public class UpdateManager: NSObject, URLSessionDelegate {
         task.resume()
         session.finishTasksAndInvalidate()
     }
+}
+
+
+extension UpdateManager {
+    
+    class var now: Date { return Date() }
+    class var day: Int { return 60 * 60 * 24 } // 60 * 60 * 24
+    
+    class func dateToMillis(date: Date) -> Int {
+        return Int(date.timeIntervalSince1970)
+    }
+    
+    class func canShowGetUpdate(before: Int) -> Bool {
+        print(dateToMillis(date: now) - before)
+        return (dateToMillis(date: now) - before) > day
+    }
+    
+    class func setMuteFrom() {
+        let pref = UserDefaults()
+        pref.set(UpdateManager.dateToMillis(date: Date()), forKey: "GET_UPDATE_MUTE")
+        pref.synchronize()
+    }
+    
+    class func getMuteFrom() -> Int {
+        let pref = UserDefaults()
+        return pref.integer(forKey: "GET_UPDATE_MUTE")
+    }
+    
 }
 
 
