@@ -48,11 +48,11 @@ public class UpdateManager: NSObject, URLSessionDelegate {
                 else { return }
 
             
-            let Title: String = "Versione \(update.version!) disponibile"
-            let Message: String = "Una nuova versione di \(update.app!.name!) è disponibile sull'App Store.\nAggiorna per scoprire le funzionalità introdotte"
+            let Title: String = "New version \(update.version!) available"
+            let Message: String = "A new version of \(update.app!.name!) is available on the App Store.\nUpdate to get the latest features"
             
-            let ActionAskLaterTitle: String = "Chiedimelo più tardi"
-            let ActionUpdateTitle: String = "Aggiorna"
+            let ActionAskLaterTitle: String = "Ask me later"
+            let ActionUpdateTitle: String = "Update"
             
             let actionAskLater = UIAlertAction(title: ActionAskLaterTitle, style: .default) { (action) in
                 UpdateManager.setMuteFrom()
@@ -77,9 +77,9 @@ public class UpdateManager: NSObject, URLSessionDelegate {
             alert.addAction(actionUpdate)
             
         case .alert:
-            let Title: String = "🎉 La tua app è aggiornata!"
-            let Message: String = "\nNovità in questa versione:\n\n" + update.description!
-            let ActionOkTitle: String = "Ok, ho capito"
+            let Title: String = "🎉 Your App is up to date!"
+            let Message: String = "\nWhat's new in this version:\n\n" + update.description!
+            let ActionOkTitle: String = "Got it"
             
             let actionOk = UIAlertAction(title: ActionOkTitle, style: .default, handler: nil)
             
